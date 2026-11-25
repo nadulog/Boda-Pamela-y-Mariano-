@@ -6,8 +6,18 @@
 <title>Pamela &amp; Mariano</title>
 <meta name="description" content="Nos casamos y queremos que seas parte de este día. Te esperamos el 23 de enero de 2027 🤍">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Pamela & Mariano">
+<meta property="og:url" content="https://bloomdate-boda-pamela-mariano.netlify.app/">
 <meta property="og:title" content="Pamela & Mariano · ¡Nos casamos!">
 <meta property="og:description" content="Nos casamos y queremos que seas parte de este día. Te esperamos el 23 de enero de 2027 🤍">
+<meta property="og:image" content="https://bloomdate-boda-pamela-mariano.netlify.app/assets/compartir.jpg">
+<meta property="og:image:secure_url" content="https://bloomdate-boda-pamela-mariano.netlify.app/assets/compartir.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="628">
+<meta property="og:image:alt" content="Nos casamos · Pamela y Mariano">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://bloomdate-boda-pamela-mariano.netlify.app/assets/compartir.jpg">
 <meta name="theme-color" content="#f4e4d3">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -647,7 +657,7 @@
   <!-- 2. Invitados y lugares reservados -->
   <section class="pieza revela">
     <div class="lienzo">
-      <img src="assets/piezas/02-invitados.jpg" alt="Invitados · Lugares reservados">
+      <img src="assets/piezas/02-invitados.jpg" alt="Invitados · Lugares reservados" id="imagen-invitados">
       <div class="inv-nombre" id="nombres-invitados"></div>
       <p class="inv-lugares" id="cantidad-lugares"></p>
     </div>
@@ -1103,8 +1113,16 @@
       if (namesEl) namesEl.textContent = formatNames(names);
 
       // Debajo de "LUGARES RESERVADOS" va solo el número de pases
+      var totalPasses = 1 + companions.length;
       var passesEl = document.getElementById("cantidad-lugares");
-      if (passesEl) passesEl.textContent = String(1 + companions.length);
+      if (passesEl) passesEl.textContent = String(totalPasses);
+
+      // Con un solo pase, la pieza dice "LUGAR RESERVADO" (nunca "lugares" con un 1)
+      var guestsImg = document.getElementById("imagen-invitados");
+      if (guestsImg && totalPasses === 1) {
+        guestsImg.src = "assets/piezas/02-invitados-singular.jpg";
+        guestsImg.alt = "Invitados · Lugar reservado";
+      }
 
       var confirmBtn = document.getElementById("boton-confirmar");
       if (confirmBtn && invite.event_slug) {
